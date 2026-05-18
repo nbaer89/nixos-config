@@ -14,7 +14,6 @@
 
     # Rust
     rustup
-    rust-analyzer
 
     # Nix / Lua / editor tooling
     lua-language-server

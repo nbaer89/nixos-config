@@ -4,7 +4,7 @@
   imports = [
     # CUSTOMIZE: Generate this on the target machine with:
     # sudo nixos-generate-config --root /
-    ./hardware-configuration.nix
+    ../../hardware-configuration.nix
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -19,6 +19,17 @@
 
   # CUSTOMIZE: Change hostname for each machine.
   networking.hostName = "devbox";
+
+  # Proxmox/VM-friendly UEFI boot. Use an EFI System Partition mounted at /boot.
+  boot.loader = {
+    efi.canTouchEfiVariables = false;
+    grub = {
+      enable = true;
+      efiSupport = true;
+      efiInstallAsRemovable = true;
+      devices = [ "nodev" ];
+    };
+  };
 
   # CUSTOMIZE: Set your timezone.
   time.timeZone = "America/Los_Angeles";
@@ -36,7 +47,7 @@
     # CUSTOMIZE: Prefer SSH keys over passwords on remote dev boxes.
     # Paste your public keys here, not private keys.
     openssh.authorizedKeys.keys = [
-      # "ssh-ed25519 AAAA... your-key-comment"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIML+qRgnkenoMbmYsAIt5YEj4jKoJQR2xWMpAxLfun48 nbaer@work"
     ];
   };
 

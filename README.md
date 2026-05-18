@@ -10,7 +10,7 @@ NixOS + Home Manager configuration for a remote development VM. The current host
 - Starship prompt
 - Neovim with AstroNvim config under `dotfiles/nvim`
 - Docker and Docker Compose
-- Rust tooling through `rustup`, `cargo`, and `rust-analyzer`
+- Rust tooling through `rustup`
 - Python/editor tooling for AstroNvim without Mason-managed binaries
 - Pi coding agent managed through Home Manager
 - Weekly Nix garbage collection and store optimization
@@ -22,10 +22,10 @@ NixOS + Home Manager configuration for a remote development VM. The current host
 .
 ├── flake.nix
 ├── flake.lock
+├── hardware-configuration.nix
 ├── hosts/
 │   └── devbox/
-│       ├── configuration.nix
-│       └── hardware-configuration.nix
+│       └── configuration.nix
 ├── users/
 │   └── nbaer/
 │       └── home.nix
@@ -53,7 +53,7 @@ Do these before rebuilding a real machine.
 1. Replace the placeholder hardware file:
 
 ```text
-hosts/devbox/hardware-configuration.nix
+hardware-configuration.nix
 ```
 
 Generate it on the target:
@@ -66,7 +66,7 @@ Then copy the generated `/etc/nixos/hardware-configuration.nix` into this repo p
 
 2. Confirm boot loader and disk layout.
 
-The placeholder hardware config includes dummy root filesystem and GRUB defaults. Replace them with the generated target values or a deliberate disk module before installing.
+The placeholder hardware config includes a dummy root filesystem. Replace it with the generated target values or a deliberate disk module before installing.
 
 3. Add SSH keys.
 
@@ -107,11 +107,10 @@ sudo git clone <repo-url> /etc/nixos
 cd /etc/nixos
 ```
 
-Generate and copy hardware config:
+Generate hardware config:
 
 ```bash
 sudo nixos-generate-config --root /
-sudo cp /etc/nixos/hardware-configuration.nix hosts/devbox/hardware-configuration.nix
 ```
 
 Then switch:
@@ -202,7 +201,6 @@ This repo does not yet include disko. A future layout would look like:
 ```text
 hosts/devbox/
 ├── configuration.nix
-├── hardware-configuration.nix
 └── disko.nix
 ```
 
