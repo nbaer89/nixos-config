@@ -9,6 +9,14 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
+
+  nix.optimise.automatic = true;
+
   # CUSTOMIZE: Change hostname for each machine.
   networking.hostName = "devbox";
 
@@ -43,6 +51,29 @@
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
     };
+  };
+
+  # Permissive remote-dev policy: SSH, common web ports, high TCP dev ports,
+  # and Mosh's default UDP range.
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [
+      22
+      80
+      443
+    ];
+    allowedTCPPortRanges = [
+      {
+        from = 1024;
+        to = 65535;
+      }
+    ];
+    allowedUDPPortRanges = [
+      {
+        from = 60000;
+        to = 61000;
+      }
+    ];
   };
 
   virtualisation.docker = {

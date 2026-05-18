@@ -1,0 +1,1 @@
+-- This file runs last in the AstroNvim setup process.

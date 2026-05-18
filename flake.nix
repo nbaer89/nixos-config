@@ -17,7 +17,7 @@
     system = "x86_64-linux";
 
     # CUSTOMIZE: Your login user.
-    username = "nathan";
+    username = "nbaer";
   in {
     nixosConfigurations.devbox = nixpkgs.lib.nixosSystem {
       inherit system;
@@ -34,7 +34,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = { inherit username; };
-          home-manager.users.${username} = import ./users/nathan/home.nix;
+          home-manager.users.${username} = import ./users/nbaer/home.nix;
         }
       ];
     };
