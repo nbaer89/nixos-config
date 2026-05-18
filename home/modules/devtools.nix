@@ -14,7 +14,6 @@
 
     # Rust
     rustup
-    cargo
     rust-analyzer
 
     # Nix / Lua / editor tooling
